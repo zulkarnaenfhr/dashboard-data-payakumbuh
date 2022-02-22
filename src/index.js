@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import DashboardPayakumbuh from './data-dashboard-payakumbuh/DashboardPayakumbuh';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <DashboardPayakumbuh />
   </React.StrictMode>,
   document.getElementById('root')
 );
