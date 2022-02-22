@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Data from "./grid_profile_payakumbuh.json";
 
 export default class DashboardPayakumbuh extends Component {
     constructor(props) {
@@ -10,13 +11,8 @@ export default class DashboardPayakumbuh extends Component {
     }
 
     async componentDidMount() {
-        await fetch("grid_profile_payakumbuh.json")
-            .then((response) => response.json())
-            .then((data) =>
-                this.setState({
-                    data: data,
-                })
-            );
+        // Data.map((data) => console.log(data));
+        Data.map((data) => this.state.data.push(data));
     }
 
     render() {
@@ -28,6 +24,7 @@ export default class DashboardPayakumbuh extends Component {
                         console.log(this.state.data);
                     }}
                 >
+                    {/* {Data.map((value) => console.log(value))} */}
                     cek print
                 </button>
             </div>
