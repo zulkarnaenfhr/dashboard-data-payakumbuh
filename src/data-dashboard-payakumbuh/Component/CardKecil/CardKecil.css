@@ -1,0 +1,18 @@
+.cardKecil {
+    margin-left: 40px;
+    width: 350px;
+    height: 102px;
+    border: 1px solid red;
+    border-radius: 15px;
+}
+
+.cardKecilJudul {
+    text-align: center;
+    padding-top: 5px;
+}
+
+.cardKecilJumlahData {
+    text-align: center;
+    font-weight: 600;
+    margin-top: -2px;
+}

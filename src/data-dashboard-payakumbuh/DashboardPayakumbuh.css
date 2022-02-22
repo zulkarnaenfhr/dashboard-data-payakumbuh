@@ -1,0 +1,44 @@
+.sideNavbar {
+    position: fixed;
+    width: 20%;
+    height: 100vh;
+    border: 1px solid red;
+    background-color: rgb(38, 53, 68);
+    color: white;
+}
+
+.sideNavbar-header {
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.sideNavbar-navigation {
+    display: flex;
+}
+
+.formLabel {
+    margin-left: 5%;
+}
+
+.selectOption {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.dashboardTitle {
+    text-align: center;
+}
+
+.mainContent {
+    margin-left: 20%;
+    width: 79%;
+    height: 1000vh;
+}
+
+.mainContent-row2{
+    margin-top: 30px;
+    margin-left: 15%;
+}
