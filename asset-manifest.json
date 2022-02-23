@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/dashboard-data-payakumbuh/static/css/main.6ac93603.css",
-    "main.js": "/dashboard-data-payakumbuh/static/js/main.aed3170a.js",
+    "main.css": "/dashboard-data-payakumbuh/static/css/main.10fb390e.css",
+    "main.js": "/dashboard-data-payakumbuh/static/js/main.ed309eed.js",
     "static/js/787.ae433145.chunk.js": "/dashboard-data-payakumbuh/static/js/787.ae433145.chunk.js",
     "index.html": "/dashboard-data-payakumbuh/index.html",
-    "main.6ac93603.css.map": "/dashboard-data-payakumbuh/static/css/main.6ac93603.css.map",
-    "main.aed3170a.js.map": "/dashboard-data-payakumbuh/static/js/main.aed3170a.js.map",
+    "main.10fb390e.css.map": "/dashboard-data-payakumbuh/static/css/main.10fb390e.css.map",
+    "main.ed309eed.js.map": "/dashboard-data-payakumbuh/static/js/main.ed309eed.js.map",
     "787.ae433145.chunk.js.map": "/dashboard-data-payakumbuh/static/js/787.ae433145.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6ac93603.css",
-    "static/js/main.aed3170a.js"
+    "static/css/main.10fb390e.css",
+    "static/js/main.ed309eed.js"
   ]
 }
