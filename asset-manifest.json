@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/dashboard-data-payakumbuh/static/css/main.98ac977a.css",
-    "main.js": "/dashboard-data-payakumbuh/static/js/main.f5f30988.js",
+    "main.css": "/dashboard-data-payakumbuh/static/css/main.6a0a9666.css",
+    "main.js": "/dashboard-data-payakumbuh/static/js/main.0537a92a.js",
     "static/js/787.ae433145.chunk.js": "/dashboard-data-payakumbuh/static/js/787.ae433145.chunk.js",
     "static/media/Header Background2.jpg": "/dashboard-data-payakumbuh/static/media/Header Background2.d13e7e13f522f0fff1cc.jpg",
     "index.html": "/dashboard-data-payakumbuh/index.html",
-    "main.98ac977a.css.map": "/dashboard-data-payakumbuh/static/css/main.98ac977a.css.map",
-    "main.f5f30988.js.map": "/dashboard-data-payakumbuh/static/js/main.f5f30988.js.map",
+    "main.6a0a9666.css.map": "/dashboard-data-payakumbuh/static/css/main.6a0a9666.css.map",
+    "main.0537a92a.js.map": "/dashboard-data-payakumbuh/static/js/main.0537a92a.js.map",
     "787.ae433145.chunk.js.map": "/dashboard-data-payakumbuh/static/js/787.ae433145.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.98ac977a.css",
-    "static/js/main.f5f30988.js"
+    "static/css/main.6a0a9666.css",
+    "static/js/main.0537a92a.js"
   ]
 }
