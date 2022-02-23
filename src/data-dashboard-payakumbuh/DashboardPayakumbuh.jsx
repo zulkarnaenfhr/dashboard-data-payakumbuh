@@ -42,6 +42,9 @@ export default class DashboardPayakumbuh extends Component {
             tvCategoryJumlah: [],
             tvCategoryData: [],
         };
+
+        this.handleKelurahanChange = this.handleKelurahanChange.bind(this);
+        this.handleReset = this.handleReset.bind(this);
         this.handleKecamatanChange = this.handleKecamatanChange.bind(this);
     }
 
@@ -250,8 +253,41 @@ export default class DashboardPayakumbuh extends Component {
         });
     };
 
-    async componentDidMount() {
-        Data.map((data) => this.state.data.push(data));
+    componentDidMount() {
+        this.handleReset();
+    }
+
+    handleReset = async () => {
+        await this.setState({
+            data: [],
+
+            statusLoad: false,
+            statusLoadKel: false,
+
+            dataKecamatan: [],
+            dataKelurahan: [],
+            pilKecamatan: "",
+
+            dataPerKecamatan: [],
+            dataKelurahanPerKecamatan: [],
+
+            pilKeyword: "",
+            dataWithKeyword: [],
+
+            // untuk perhitungan card kecil
+            jumlahPenduduk: null,
+            jumlahKartuKeluarga: null,
+            jumlahKTP: null,
+            jumlahCustIndihome: null,
+            jumlahCustHVC: null,
+            avgRPU: null,
+
+            tvCategory: [],
+            tvCategoryJumlah: [],
+            tvCategoryData: [],
+        });
+
+        await Data.map((data) => this.state.data.push(data));
 
         await this.state.data.map((data) => {
             const kecamatan = data.kecamatan;
@@ -362,7 +398,7 @@ export default class DashboardPayakumbuh extends Component {
         this.setState({
             statusLoad: true,
         });
-    }
+    };
 
     render() {
         const statusPilKecamatan = this.state.pilKecamatan;
@@ -385,16 +421,15 @@ export default class DashboardPayakumbuh extends Component {
         return (
             <div>
                 {this.state.statusLoad === false ? (
-                    <h1>load data</h1>
+                    <h1>""</h1>
                 ) : (
                     <div>
                         <div className="sideNavbar">
                             <div className="sideNavbar-header">
                                 <h4 className="dashboardTitle">Dashboard Data Kota Payakumbuh</h4>
                             </div>
-                            <div className="sideNavbar-navigation">
+                            <div className="sideNavbar-navigation" data-aos="fade-up" data-aos-delay="50">
                                 <div>
-                                    {/* <h5 className="sideNavbar-navigation-title">Pilih Wilayah</h5> */}
                                     <div className="form-container">
                                         <form action="">
                                             <label className="formLabel" htmlFor="">
@@ -420,6 +455,9 @@ export default class DashboardPayakumbuh extends Component {
                                                 </select>
                                             </div>
                                         </form>
+                                        <button className="resetButton" onClick={this.handleReset}>
+                                            Kota Payakumbuh
+                                        </button>
                                     </div>
                                 </div>
                             </div>

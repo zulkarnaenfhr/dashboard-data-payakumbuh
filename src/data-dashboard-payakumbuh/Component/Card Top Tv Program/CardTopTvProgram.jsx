@@ -4,7 +4,7 @@ import "./CardTopTvProgram.css";
 class Cardtoptvprogram extends Component {
     render() {
         return (
-            <div id="CardTopTvProgram">
+            <div id="CardTopTvProgram" data-aos="fade-up" data-aos-delay="200">
                 <div className="CardTopTvProgram-judul-container">
                     <p className="CardTopTvProgram-title">Daftar Top 5 Tv Program {this.props.dataApa}</p>
                 </div>

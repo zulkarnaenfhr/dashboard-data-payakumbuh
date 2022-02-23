@@ -7,7 +7,7 @@ import { Chart as ChartJS } from "chart.js/auto";
 class Tvprogramcontainer extends Component {
     render() {
         return (
-            <div id="tvProgramContainer">
+            <div id="tvProgramContainer" data-aos="fade-up" data-aos-delay="200">
                 <div className="row">
                     <div>
                         <div className="tvProgramContainer-title-container">

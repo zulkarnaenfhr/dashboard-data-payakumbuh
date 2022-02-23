@@ -9,6 +9,7 @@ class Welcomeheader extends Component {
             cuaca: null,
             suhu: null,
             idLogo: null,
+            description: null,
             statusLoadWeather: false,
         };
     }
@@ -21,29 +22,26 @@ class Welcomeheader extends Component {
                     suhu: data.main.temp - 273.15,
                     cuaca: data.weather[0].main,
                     idLogo: data.weather[0].icon,
+                    description: data.weather[0].description,
                     statusLoadWeather: true,
                 })
             );
     }
     render() {
         return (
-            <div id="welcomeHeader">
+            <div id="welcomeHeader" data-aos="fade-up" data-aos-delay="200">
                 {this.state.statusLoadWeather === false ? (
                     <h1>load data</h1>
                 ) : (
                     <div className="row">
                         <div className="col-6 welcomeHeader-left">
-                            <h2>
+                            <h2 data-aos="fade-up" data-aos-delay="500">
                                 Welcome, <span className="welcomeTitle">Kota Payakumbuh !</span>
                             </h2>
-                            <h5>apa kabar hari ini?</h5>
-                        </div>
-                        <div className="col-6 welcomeHeader-right">
-                            <h1>
+                            <h5 data-aos="fade-up" data-aos-delay="800">
                                 <img src={`https://openweathermap.org/img/wn/${this.state.idLogo}@2x.png`} width="50" height="50" />
-                                {this.state.suhu.toFixed(2)}°C
-                            </h1>
-                            <h1>{this.state.cuaca}</h1>
+                                {this.state.suhu.toFixed(2)}°C, {this.state.description}
+                            </h5>
                         </div>
                     </div>
                 )}
