@@ -45,6 +45,7 @@ export default class DashboardPayakumbuh extends Component {
         await this.setState({
             pilKeyword: event.target.value,
             dataWithKeyword: [],
+            statusLoadKel: false,
         });
         await this.state.data.map((data) => {
             if (data.desa_kelurahan === event.target.value) {
@@ -130,6 +131,9 @@ export default class DashboardPayakumbuh extends Component {
         // akhir perhitungan tv program
 
         // console.log(this.state.dataWithKeyword);
+        this.setState({
+            statusLoadKel: true,
+        });
     };
 
     handleKecamatanChange = async (event) => {
@@ -372,14 +376,7 @@ export default class DashboardPayakumbuh extends Component {
                       </option>
                   ));
 
-        // const apa = this.state.pilKeyword === "" ? "payakumbuh" : this.state.pilKecamatan.includes(this.state.pilKeyword) ? "kecamatan" : "kelurahan";
-
         const apa = this.state.pilKeyword === "" ? "Kota Payakumbuh" : this.state.pilKeyword;
-
-        // let totalCustIndihome = 0;
-        // this.state.dataWithKeyword.map((data) => {
-        //     totalCustIndihome += data.jml_cust_indihome;
-        // });
 
         return (
             <div>
@@ -485,15 +482,18 @@ export default class DashboardPayakumbuh extends Component {
                                             );
                                         }
                                     })}
+                                    {/* {this.state.tvCategoryData.map((data) => (
+                                        <p>{data.category}</p>
+                                    ))} */}
                                 </div>
                             </div>
-                            {/* <button
+                            <button
                                 onClick={() => {
                                     console.log(this.state.tvCategoryData);
                                 }}
                             >
                                 cek print state
-                            </button> */}
+                            </button>
                         </div>
                     </div>
                 )}
