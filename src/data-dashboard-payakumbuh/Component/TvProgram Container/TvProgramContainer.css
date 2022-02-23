@@ -1,0 +1,23 @@
+#tvProgramContainer {
+    height: 520px;
+    background-color: white;
+}
+
+.barChart-title {
+    padding-top: 0.4rem;
+    font-weight: 600;
+    padding-left: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.barChart-container {
+    margin-top: 10px;
+}
+
+.tvProgramContainer-title-container {
+    height: 40px;
+    background-color: #394263;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}

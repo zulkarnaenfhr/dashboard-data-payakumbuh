@@ -1,0 +1,25 @@
+#CardTopTvProgram {
+    height: 280px;
+    background-color: white;
+}
+
+.CardTopTvProgram-judul-container {
+    height: 40px;
+    background-color: #394263;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.CardTopTvProgram-title {
+    padding-top: 0.4rem;
+    font-weight: 600;
+    padding-left: 1rem;
+}
+
+.listTopTvProgram-container {
+    padding-top: 1rem;
+}
+
+.listTopTvProgram {
+    border-bottom: 1px solid red;
+}

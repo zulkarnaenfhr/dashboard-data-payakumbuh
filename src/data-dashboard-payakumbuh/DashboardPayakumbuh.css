@@ -5,12 +5,13 @@
     position: fixed;
     width: 20%;
     height: 100vh;
-    background-color: rgb(38, 53, 68);
+    background-color: #394263;
     color: white;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .sideNavbar-header {
-    font-family: "Poppins", sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     height: 20vh;
     display: flex;
     justify-content: center;
@@ -26,24 +27,72 @@
     margin-left: 5%;
 }
 
-.selectOption {
-    width: 90%;
-    margin-left: 5%;
+select {
+    /* Reset Select */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    border: 0;
+    box-shadow: none;
+    /* Personalize */
+    flex: 1;
+    padding: 0 1em;
+    color: #fff;
+    background-color: #2c3e50;
+    background-image: none;
+    cursor: pointer;
+}
+/* Remove IE arrow */
+select::-ms-expand {
+    display: none;
+}
+/* Custom Select wrapper */
+.select {
+    position: relative;
+    display: flex;
+    width: 300px;
+    height: 3em;
+    border-radius: 0.25em;
+    overflow: hidden;
+}
+/* Arrow */
+.select::after {
+    content: "\25BC";
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
+    background-color: #34495e;
+    transition: 0.25s all ease;
+    pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+    color: #f39c12;
 }
 
 .dashboardTitle {
     text-align: center;
 }
 
-.sideNavbar-navigation-title1 {
+.sideNavbar-navigation-title {
     margin-left: 0.5rem;
+}
+
+.form-container {
+    padding-top: 10px;
+}
+
+.formLabel2 {
+    margin-top: 10px;
 }
 
 .mainContent {
     background-color: rgb(234, 237, 241);
     margin-left: 20%;
     font-family: "Poppins", sans-serif;
-    min-height: 1000vh;
+    min-height: 100vh;
 }
 
 /* .welcomeHeader-container {
@@ -54,23 +103,10 @@
     padding-top: 2rem;
 }
 
-.mainContent-row3 {
-    border: 1px solid red;
-    margin-top: 20px;
+.tvProgram-container {
+    padding-top: 2rem;
 }
 
-.barChart-title {
-    text-align: center;
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.barChart-container {
-    margin-top: -10px;
-}
-
-.cardTopTvProgram {
-    margin-top: 50px;
-    height: 300px;
-    border: 1px solid black;
+.footer-container {
+    margin-top: 2rem;
 }

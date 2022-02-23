@@ -7,7 +7,11 @@ class Cardcontainer extends Component {
     render() {
         return (
             <div id="CardContainer">
-                <h1 className="mainContent-judul">Menampilkan Data Untuk {this.props.dataApa} </h1>
+                <div className="CardContainer-judul-container">
+                    <div className="container">
+                        <h2 className="mainContent-judul">Menampilkan Data Untuk {this.props.dataApa} </h2>
+                    </div>
+                </div>
                 <div className="row mainContent-row1">
                     <CardKecil judul={"Jumlah Penduduk"} jumlah={this.props.jumlahPenduduk} />
                     <CardKecil judul={"Jumlah Kartu Keluarga"} jumlah={this.props.jumlahKartuKeluarga} />

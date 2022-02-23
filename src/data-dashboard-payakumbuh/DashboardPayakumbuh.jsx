@@ -4,9 +4,11 @@ import "./DashboardPayakumbuh.css";
 import CardKecil from "./Component/CardKecil/CardKecil";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
-import Cardsedang from "./Component/CardBesar/CardSedang";
 import Welcomeheader from "./Component/Welcome Header/WelcomeHeader";
 import Cardcontainer from "./Component/CardContainer/CardContainer";
+import Tvprogramcontainer from "./Component/TvProgram Container/TvProgramContainer";
+import Cardtoptvprogram from "./Component/Card Top Tv Program/CardTopTvProgram";
+import Footer from "./Component/Footer/Footer";
 
 export default class DashboardPayakumbuh extends Component {
     constructor(props) {
@@ -392,111 +394,62 @@ export default class DashboardPayakumbuh extends Component {
                             </div>
                             <div className="sideNavbar-navigation">
                                 <div>
-                                    <h5 className="sideNavbar-navigation-title1">Pilih Wilayah</h5>
-                                    <form action="">
-                                        <label className="formLabel" htmlFor="">
-                                            Pilih Kecamatan :
-                                        </label>
-                                        <select className="selectOption" onChange={this.handleKecamatanChange} name="" id="">
-                                            <option value="">pilih kecamatan</option>
-                                            {this.state.dataKecamatan.map((kec) => (
-                                                <option value={kec} key={kec}>
-                                                    {kec}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        <br />
-                                        <br />
-                                        <label className="formLabel" htmlFor="">
-                                            Pilih Kelurahan :
-                                        </label>
-                                        <select className="selectOption" onChange={this.handleKelurahanChange} name="" id="">
-                                            <option value="">pilih kelurahan</option>
-                                            {optionKelurahan}
-                                        </select>
-                                    </form>
+                                    {/* <h5 className="sideNavbar-navigation-title">Pilih Wilayah</h5> */}
+                                    <div className="form-container">
+                                        <form action="">
+                                            <label className="formLabel" htmlFor="">
+                                                Pilih Kecamatan :
+                                            </label>
+                                            <div className="select">
+                                                <select className="selectOption" onChange={this.handleKecamatanChange} name="" id="">
+                                                    <option value="">pilih kecamatan</option>
+                                                    {this.state.dataKecamatan.map((kec) => (
+                                                        <option value={kec} key={kec}>
+                                                            {kec}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                            <label className="formLabel formLabel2" htmlFor="">
+                                                Pilih Kelurahan :
+                                            </label>
+                                            <div className="select ">
+                                                <select className="selectOption" onChange={this.handleKelurahanChange} name="" id="">
+                                                    <option value="">pilih kelurahan</option>
+                                                    {optionKelurahan}
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="mainContent">
-                            <div className="welcomeHeader-container">
-                                <Welcomeheader />
-                            </div>
-                            <div className="card-container">
-                                <Cardcontainer
-                                    dataApa={apa}
-                                    jumlahPenduduk={this.state.jumlahPenduduk.toLocaleString()}
-                                    jumlahKartuKeluarga={this.state.jumlahKartuKeluarga.toLocaleString()}
-                                    jumlahPendudukBerKTP={this.state.jumlahKTP.toLocaleString()}
-                                    avarageRPU={`Rp. ${this.state.avgRPU.toLocaleString("id-ID")}`}
-                                    jumlahCustIndihome={this.state.jumlahCustIndihome.toLocaleString()}
-                                    jumlahCustHVC={this.state.jumlahCustHVC.toLocaleString()}
-                                />
-                            </div>
-                            {/* <h1 className="mainContent-judul">Menampilkan Data Untuk {apa}</h1>
-                            <div className="row mainContent-row1">
-                                <CardKecil judul={"Jumlah Penduduk"} jumlah={this.state.jumlahPenduduk.toLocaleString()} />
-
-                                <CardKecil judul={"Jumlah Kartu Keluarga"} jumlah={this.state.jumlahKartuKeluarga.toLocaleString()} />
-
-                                <CardKecil judul={"Jumlah Penduduk Ber-KTP"} jumlah={this.state.jumlahKTP.toLocaleString()} />
-
-                                <CardKecil judul={"Avarage RPU"} jumlah={`Rp. ${this.state.avgRPU.toLocaleString("id-ID")}`} />
-                            </div>
-
-                            <div className="row mainContent-row2">
-                                <Cardsedang judul={"Jumlah Customer Indihome"} jumlah={this.state.jumlahCustIndihome.toLocaleString()} />
-                                <Cardsedang judul={"Jumlah Customer HVC"} jumlah={this.state.jumlahCustHVC.toLocaleString()} />
-                            </div>
-
-                            <div className="row mainContent-row3">
-                                <div className="col-6">
-                                    <p className="barChart-title">Bar Chart Program Tv</p>
-                                    <div className="barChart-container">
-                                        <Bar
-                                            height={200}
-                                            data={{
-                                                labels: this.state.tvCategory,
-                                                datasets: [
-                                                    {
-                                                        label: "Jumlah",
-                                                        backgroundColor: "rgba(75,192,192,1)",
-                                                        borderColor: "rgba(0,0,0,1)",
-                                                        borderWidth: 2,
-                                                        data: this.state.tvCategoryJumlah,
-                                                    },
-                                                ],
-                                            }}
-                                            options={{
-                                                title: {
-                                                    display: true,
-                                                    text: "Average Rainfall per month",
-                                                    fontSize: 20,
-                                                },
-                                                legend: {
-                                                    display: true,
-                                                    position: "right",
-                                                },
-                                                maintainAspectRatio: true,
-                                            }}
-                                        />
+                            <div className="container">
+                                <div className="welcomeHeader-container">
+                                    <Welcomeheader />
+                                </div>
+                                <div className="card-container">
+                                    <Cardcontainer
+                                        dataApa={apa}
+                                        jumlahPenduduk={this.state.jumlahPenduduk.toLocaleString()}
+                                        jumlahKartuKeluarga={this.state.jumlahKartuKeluarga.toLocaleString()}
+                                        jumlahPendudukBerKTP={this.state.jumlahKTP.toLocaleString()}
+                                        avarageRPU={`Rp. ${this.state.avgRPU.toLocaleString("id-ID")}`}
+                                        jumlahCustIndihome={this.state.jumlahCustIndihome.toLocaleString()}
+                                        jumlahCustHVC={this.state.jumlahCustHVC.toLocaleString()}
+                                    />
+                                </div>
+                                <div className="row tvProgram-container">
+                                    <div className="col-7">
+                                        <Tvprogramcontainer dataApa={apa} labelTableTvProgram={this.state.tvCategory} tvCategoryJumlah={this.state.tvCategoryJumlah} />
+                                    </div>
+                                    <div className="col-5">
+                                        <Cardtoptvprogram dataApa={apa} tvCategoryData={this.state.tvCategoryData} />
                                     </div>
                                 </div>
-                                <div className="col-6">
-                                    <div className="cardTopTvProgram">
-                                        <p>daftar top 5 tv program</p>
-                                        {this.state.tvCategoryData.map((data, index) => {
-                                            if (index < 5) {
-                                                return (
-                                                    <p key={data.category}>
-                                                        {index + 1}.{data.category} ({data.jumlah})
-                                                    </p>
-                                                );
-                                            }
-                                        })}
-                                    </div>
-                                </div>
-                            </div> */}
+                            </div>
+
                             {/* <button
                                 onClick={() => {
                                     console.log(this.state.tvCategoryData);
@@ -504,6 +457,9 @@ export default class DashboardPayakumbuh extends Component {
                             >
                                 cek print state
                             </button> */}
+                            <div className="footer-container">
+                                <Footer />
+                            </div>
                         </div>
                     </div>
                 )}
