@@ -1,18 +1,18 @@
-.cardKecil {
+.cardSedang {
     margin-left: 40px;
-    width: 250px;
-    /* width: 350px; */
+    /* width: 250px; */
+    width: 350px;
     height: 102px;
     border: 1px solid red;
     border-radius: 15px;
 }
 
-.cardKecilJudul {
+.cardSedangJudul {
     text-align: center;
     padding-top: 5px;
 }
 
-.cardKecilJumlahData {
+.cardSedangJumlahData {
     text-align: center;
     font-weight: 600;
     margin-top: -2px;

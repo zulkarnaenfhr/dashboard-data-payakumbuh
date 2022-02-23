@@ -4,6 +4,7 @@ import "./DashboardPayakumbuh.css";
 import CardKecil from "./Component/CardKecil/CardKecil";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
+import Cardsedang from "./Component/CardBesar/CardSedang";
 
 export default class DashboardPayakumbuh extends Component {
     constructor(props) {
@@ -31,6 +32,7 @@ export default class DashboardPayakumbuh extends Component {
             jumlahKTP: null,
             jumlahCustIndihome: null,
             jumlahCustHVC: null,
+            avgRPU: null,
 
             tvCategory: [],
             tvCategoryJumlah: [],
@@ -56,6 +58,8 @@ export default class DashboardPayakumbuh extends Component {
         let jumlahKTP = 0;
         let jumlahCustIndihome = 0;
         let jumlahCustHVC = 0;
+        let jumlahAvgValue = 0;
+        let jumlahJumlahAvgValue = 0;
 
         await this.state.dataWithKeyword.map((data) => {
             jumlahPenduduk += data.jumlah_penduduk_kelurahan;
@@ -63,6 +67,11 @@ export default class DashboardPayakumbuh extends Component {
             jumlahKTP += data.jumlah_ktp_kelurahan;
             jumlahCustIndihome += data.jml_cust_indihome;
             jumlahCustHVC += data.jml_plg_hvc;
+
+            if (data.avg_arpu !== "") {
+                jumlahAvgValue += parseInt(data.avg_arpu);
+                jumlahJumlahAvgValue += 1;
+            }
         });
 
         await this.setState({
@@ -72,11 +81,13 @@ export default class DashboardPayakumbuh extends Component {
             jumlahCustIndihome: jumlahCustIndihome,
             jumlahCustHVC: jumlahCustHVC,
             tvCategoryJumlah: [],
+            tvCategoryData: [],
+            avgRPU: jumlahAvgValue / jumlahJumlahAvgValue,
         });
         // akhir perhitungan data card kecil
 
         // awal perhitungan tv program
-        this.state.tvCategory.map((category) => {
+        await this.state.tvCategory.map((category) => {
             let jumlah = 0;
             this.state.dataWithKeyword.map((data) => {
                 if (data.top_tv_genre_program1 === category) {
@@ -96,8 +107,26 @@ export default class DashboardPayakumbuh extends Component {
                 }
             });
 
+            // buat Sorting top 5
+            this.state.tvCategoryData.push({
+                category: category,
+                jumlah: jumlah,
+            });
+
             this.state.tvCategoryJumlah.push(jumlah);
         });
+
+        function compare(a, b) {
+            if (a.jumlah > b.jumlah) {
+                return -1;
+            }
+            if (a.jumlah < b.jumlah) {
+                return 1;
+            }
+            return 0;
+        }
+
+        this.state.tvCategoryData.sort(compare);
         // akhir perhitungan tv program
 
         // console.log(this.state.dataWithKeyword);
@@ -140,6 +169,8 @@ export default class DashboardPayakumbuh extends Component {
         let jumlahKTP = 0;
         let jumlahCustIndihome = 0;
         let jumlahCustHVC = 0;
+        let jumlahAvgValue = 0;
+        let jumlahJumlahAvgValue = 0;
 
         await this.state.dataWithKeyword.map((data) => {
             jumlahPenduduk += data.jumlah_penduduk_kelurahan;
@@ -147,6 +178,10 @@ export default class DashboardPayakumbuh extends Component {
             jumlahKTP += data.jumlah_ktp_kelurahan;
             jumlahCustIndihome += data.jml_cust_indihome;
             jumlahCustHVC += data.jml_plg_hvc;
+            if (data.avg_arpu !== "") {
+                jumlahAvgValue += parseInt(data.avg_arpu);
+                jumlahJumlahAvgValue += 1;
+            }
         });
 
         await this.setState({
@@ -156,11 +191,13 @@ export default class DashboardPayakumbuh extends Component {
             jumlahCustIndihome: jumlahCustIndihome,
             jumlahCustHVC: jumlahCustHVC,
             tvCategoryJumlah: [],
+            tvCategoryData: [],
+            avgRPU: jumlahAvgValue / jumlahJumlahAvgValue,
         });
         // akhir perhitungan data card kecil
 
         // awal perhitungan tv program
-        this.state.tvCategory.map((category) => {
+        await this.state.tvCategory.map((category) => {
             let jumlah = 0;
             this.state.dataWithKeyword.map((data) => {
                 if (data.top_tv_genre_program1 === category) {
@@ -179,13 +216,25 @@ export default class DashboardPayakumbuh extends Component {
                     jumlah += 1;
                 }
             });
-            // kalau mau object
-            // this.state.tvCategoryData.push({
-            //     category: category,
-            //     jumlah: jumlah,
-            // });
+            // buat Sorting top 5
+            this.state.tvCategoryData.push({
+                category: category,
+                jumlah: jumlah,
+            });
             this.state.tvCategoryJumlah.push(jumlah);
         });
+
+        function compare(a, b) {
+            if (a.jumlah > b.jumlah) {
+                return -1;
+            }
+            if (a.jumlah < b.jumlah) {
+                return 1;
+            }
+            return 0;
+        }
+
+        this.state.tvCategoryData.sort(compare);
         // akhir perhitungan tv program
 
         this.setState({
@@ -216,6 +265,8 @@ export default class DashboardPayakumbuh extends Component {
         let jumlahKTP = 0;
         let jumlahCustIndihome = 0;
         let jumlahCustHVC = 0;
+        let jumlahAvgValue = 0;
+        let jumlahJumlahAvgValue = 0;
 
         await this.state.data.map((data) => {
             jumlahPenduduk += data.jumlah_penduduk_kelurahan;
@@ -223,6 +274,11 @@ export default class DashboardPayakumbuh extends Component {
             jumlahKTP += data.jumlah_ktp_kelurahan;
             jumlahCustIndihome += data.jml_cust_indihome;
             jumlahCustHVC += data.jml_plg_hvc;
+
+            if (data.avg_arpu !== "") {
+                jumlahAvgValue += parseInt(data.avg_arpu);
+                jumlahJumlahAvgValue += 1;
+            }
         });
 
         await this.setState({
@@ -231,6 +287,7 @@ export default class DashboardPayakumbuh extends Component {
             jumlahKTP: jumlahKTP,
             jumlahCustIndihome: jumlahCustIndihome,
             jumlahCustHVC: jumlahCustHVC,
+            avgRPU: jumlahAvgValue / jumlahJumlahAvgValue,
         });
         // akhir perhitungan data card kecil
 
@@ -253,7 +310,7 @@ export default class DashboardPayakumbuh extends Component {
             }
         });
 
-        this.state.tvCategory.map((category) => {
+        await this.state.tvCategory.map((category) => {
             let jumlah = 0;
             this.state.data.map((data) => {
                 if (data.top_tv_genre_program1 === category) {
@@ -272,13 +329,25 @@ export default class DashboardPayakumbuh extends Component {
                     jumlah += 1;
                 }
             });
-            // kalau mau object
-            // this.state.tvCategoryData.push({
-            //     category: category,
-            //     jumlah: jumlah,
-            // });
+            // buat Sorting top 5
+            this.state.tvCategoryData.push({
+                category: category,
+                jumlah: jumlah,
+            });
             this.state.tvCategoryJumlah.push(jumlah);
         });
+
+        function compare(a, b) {
+            if (a.jumlah > b.jumlah) {
+                return -1;
+            }
+            if (a.jumlah < b.jumlah) {
+                return 1;
+            }
+            return 0;
+        }
+
+        this.state.tvCategoryData.sort(compare);
 
         // akhir perhitungan tv program
 
@@ -357,79 +426,75 @@ export default class DashboardPayakumbuh extends Component {
 
                                 <CardKecil judul={"Jumlah Kartu Keluarga"} jumlah={this.state.jumlahKartuKeluarga.toLocaleString()} />
                                 <CardKecil judul={"Jumlah Penduduk Ber-KTP"} jumlah={this.state.jumlahKTP.toLocaleString()} />
+                                <CardKecil judul={"Avarage RPU"} jumlah={`Rp. ${this.state.avgRPU.toLocaleString("id-ID")}`} />
                             </div>
+
                             <div className="row mainContent-row2">
-                                <CardKecil judul={"Jumlah Customer Indihome"} jumlah={this.state.jumlahCustIndihome.toLocaleString()} />
-                                <CardKecil judul={"Jumlah Customer HVC"} jumlah={this.state.jumlahCustHVC.toLocaleString()} />
+                                <Cardsedang judul={"Jumlah Customer Indihome"} jumlah={this.state.jumlahCustIndihome.toLocaleString()} />
+                                <Cardsedang judul={"Jumlah Customer HVC"} jumlah={this.state.jumlahCustHVC.toLocaleString()} />
                             </div>
+
                             <div className="row mainContent-row3">
                                 {/* <div className="col-6">
                                     <p>top Tv Category data :</p>
                                     
                                 </div>
                                 <div className="col-6">masok</div> */}
-                                <p>Bar Chart Program Tv</p>
-                                <Bar
-                                    height={100}
-                                    data={{
-                                        labels: this.state.tvCategory,
-                                        datasets: [
-                                            {
-                                                label: "Jumlah",
-                                                backgroundColor: "rgba(75,192,192,1)",
-                                                borderColor: "rgba(0,0,0,1)",
-                                                borderWidth: 2,
-                                                data: this.state.tvCategoryJumlah,
+                                <div className="col-6">
+                                    <p>Bar Chart Program Tv</p>
+                                    <Bar
+                                        height={200}
+                                        data={{
+                                            labels: this.state.tvCategory,
+                                            datasets: [
+                                                {
+                                                    label: "Jumlah",
+                                                    backgroundColor: "rgba(75,192,192,1)",
+                                                    borderColor: "rgba(0,0,0,1)",
+                                                    borderWidth: 2,
+                                                    data: this.state.tvCategoryJumlah,
+                                                },
+                                            ],
+                                        }}
+                                        options={{
+                                            title: {
+                                                display: true,
+                                                text: "Average Rainfall per month",
+                                                fontSize: 20,
                                             },
-                                        ],
-                                    }}
-                                    options={{
-                                        title: {
-                                            display: true,
-                                            text: "Average Rainfall per month",
-                                            fontSize: 20,
-                                        },
-                                        legend: {
-                                            display: true,
-                                            position: "right",
-                                        },
-                                        maintainAspectRatio: true,
-                                    }}
-                                />
+                                            legend: {
+                                                display: true,
+                                                position: "right",
+                                            },
+                                            maintainAspectRatio: true,
+                                        }}
+                                    />
+                                </div>
+                                <div className="col-6">
+                                    <p>daftar top 5 tv program</p>
+                                    {/* {this.state.tvCategoryData.map((data, index) => {
+                                        <p>as.</p>;
+                                    })} */}
+
+                                    {this.state.tvCategoryData.map((data, index) => {
+                                        if (index < 5) {
+                                            return (
+                                                <p key={data.category}>
+                                                    {index + 1}.{data.category} ({data.jumlah})
+                                                </p>
+                                            );
+                                        }
+                                    })}
+                                </div>
                             </div>
-                            <button
+                            {/* <button
                                 onClick={() => {
-                                    console.log(this.state.tvCategoryJumlah);
+                                    console.log(this.state.tvCategoryData);
                                 }}
                             >
                                 cek print state
-                            </button>
+                            </button> */}
                         </div>
-                        {/* <h1>masuk</h1>
-                        <button
-                            onClick={() => {
-                                console.log(this.state.dataWithKeyword);
-                            }}
-                        >
-                            cek print
-                        </button>
-                        <h1>cust indihome: {this.state.jumlahCustIndihome}</h1>
-                        <h1>jumlah kk: {this.state.jumlahKartuKeluarga}</h1>
-                        <form action="">
-                            <select onChange={this.handleKecamatanChange} name="" id="">
-                                <option value="">pilih kecamatan</option>
-                                {this.state.dataKecamatan.map((kec) => (
-                                    <option value={kec} key={kec}>
-                                        {kec}
-                                    </option>
-                                ))}
-                            </select>
-                            <select onChange={this.handleKelurahanChange} name="" id="">
-                                <option value="">pilih kelurahan</option>
-                                {optionKelurahan}
-                            </select>
-                        </form>
-                        <h1>{apa}</h1> */}
                     </div>
                 )}
             </div>
