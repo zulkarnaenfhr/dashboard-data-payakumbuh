@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Data from "./grid_profile_payakumbuh.json";
 import "./DashboardPayakumbuh.css";
 import CardKecil from "./Component/CardKecil/CardKecil";
+import { Bar } from "react-chartjs-2";
+import { Chart as ChartJS } from "chart.js/auto";
 
 export default class DashboardPayakumbuh extends Component {
     constructor(props) {
@@ -23,11 +25,16 @@ export default class DashboardPayakumbuh extends Component {
             pilKeyword: "",
             dataWithKeyword: [],
 
+            // untuk perhitungan card kecil
             jumlahPenduduk: null,
             jumlahKartuKeluarga: null,
             jumlahKTP: null,
             jumlahCustIndihome: null,
             jumlahCustHVC: null,
+
+            tvCategory: [],
+            tvCategoryJumlah: [],
+            tvCategoryData: [],
         };
         this.handleKecamatanChange = this.handleKecamatanChange.bind(this);
     }
@@ -43,6 +50,7 @@ export default class DashboardPayakumbuh extends Component {
             }
         });
 
+        // awal perhitungan data card kecil
         let jumlahPenduduk = 0;
         let jumlahKartuKeluarga = 0;
         let jumlahKTP = 0;
@@ -63,7 +71,35 @@ export default class DashboardPayakumbuh extends Component {
             jumlahKTP: jumlahKTP,
             jumlahCustIndihome: jumlahCustIndihome,
             jumlahCustHVC: jumlahCustHVC,
+            tvCategoryJumlah: [],
         });
+        // akhir perhitungan data card kecil
+
+        // awal perhitungan tv program
+        this.state.tvCategory.map((category) => {
+            let jumlah = 0;
+            this.state.dataWithKeyword.map((data) => {
+                if (data.top_tv_genre_program1 === category) {
+                    jumlah += 1;
+                }
+                if (data.top_tv_genre_program2 === category) {
+                    jumlah += 1;
+                }
+                if (data.top_tv_genre_program3 === category) {
+                    jumlah += 1;
+                }
+                if (data.top_tv_genre_program4 === category) {
+                    jumlah += 1;
+                }
+                if (data.top_tv_genre_program5 === category) {
+                    jumlah += 1;
+                }
+            });
+
+            this.state.tvCategoryJumlah.push(jumlah);
+        });
+        // akhir perhitungan tv program
+
         // console.log(this.state.dataWithKeyword);
     };
 
@@ -98,6 +134,7 @@ export default class DashboardPayakumbuh extends Component {
             }
         });
 
+        // awal perhitungan data card kecil
         let jumlahPenduduk = 0;
         let jumlahKartuKeluarga = 0;
         let jumlahKTP = 0;
@@ -118,7 +155,38 @@ export default class DashboardPayakumbuh extends Component {
             jumlahKTP: jumlahKTP,
             jumlahCustIndihome: jumlahCustIndihome,
             jumlahCustHVC: jumlahCustHVC,
+            tvCategoryJumlah: [],
         });
+        // akhir perhitungan data card kecil
+
+        // awal perhitungan tv program
+        this.state.tvCategory.map((category) => {
+            let jumlah = 0;
+            this.state.dataWithKeyword.map((data) => {
+                if (data.top_tv_genre_program1 === category) {
+                    jumlah += 1;
+                }
+                if (data.top_tv_genre_program2 === category) {
+                    jumlah += 1;
+                }
+                if (data.top_tv_genre_program3 === category) {
+                    jumlah += 1;
+                }
+                if (data.top_tv_genre_program4 === category) {
+                    jumlah += 1;
+                }
+                if (data.top_tv_genre_program5 === category) {
+                    jumlah += 1;
+                }
+            });
+            // kalau mau object
+            // this.state.tvCategoryData.push({
+            //     category: category,
+            //     jumlah: jumlah,
+            // });
+            this.state.tvCategoryJumlah.push(jumlah);
+        });
+        // akhir perhitungan tv program
 
         this.setState({
             statusLoadKel: true,
@@ -142,6 +210,7 @@ export default class DashboardPayakumbuh extends Component {
             }
         });
 
+        // awal perhitungan data card kecil
         let jumlahPenduduk = 0;
         let jumlahKartuKeluarga = 0;
         let jumlahKTP = 0;
@@ -163,6 +232,55 @@ export default class DashboardPayakumbuh extends Component {
             jumlahCustIndihome: jumlahCustIndihome,
             jumlahCustHVC: jumlahCustHVC,
         });
+        // akhir perhitungan data card kecil
+
+        // awal perhitungan tv program
+        await this.state.data.map((data) => {
+            if (!this.state.tvCategory.includes(data.top_tv_genre_program1) && data.top_tv_genre_program1 !== "") {
+                this.state.tvCategory.push(data.top_tv_genre_program1);
+            }
+            if (!this.state.tvCategory.includes(data.top_tv_genre_program2) && data.top_tv_genre_program2 !== "") {
+                this.state.tvCategory.push(data.top_tv_genre_program2);
+            }
+            if (!this.state.tvCategory.includes(data.top_tv_genre_program3) && data.top_tv_genre_program3 !== "") {
+                this.state.tvCategory.push(data.top_tv_genre_program3);
+            }
+            if (!this.state.tvCategory.includes(data.top_tv_genre_program4) && data.top_tv_genre_program4 !== "") {
+                this.state.tvCategory.push(data.top_tv_genre_program4);
+            }
+            if (!this.state.tvCategory.includes(data.top_tv_genre_program5) && data.top_tv_genre_program5 !== "") {
+                this.state.tvCategory.push(data.top_tv_genre_program5);
+            }
+        });
+
+        this.state.tvCategory.map((category) => {
+            let jumlah = 0;
+            this.state.data.map((data) => {
+                if (data.top_tv_genre_program1 === category) {
+                    jumlah += 1;
+                }
+                if (data.top_tv_genre_program2 === category) {
+                    jumlah += 1;
+                }
+                if (data.top_tv_genre_program3 === category) {
+                    jumlah += 1;
+                }
+                if (data.top_tv_genre_program4 === category) {
+                    jumlah += 1;
+                }
+                if (data.top_tv_genre_program5 === category) {
+                    jumlah += 1;
+                }
+            });
+            // kalau mau object
+            // this.state.tvCategoryData.push({
+            //     category: category,
+            //     jumlah: jumlah,
+            // });
+            this.state.tvCategoryJumlah.push(jumlah);
+        });
+
+        // akhir perhitungan tv program
 
         this.setState({
             statusLoad: true,
@@ -206,7 +324,7 @@ export default class DashboardPayakumbuh extends Component {
                             </div>
                             <div className="sideNavbar-navigation">
                                 <div>
-                                    <h5>Pilih Wilayah</h5>
+                                    <h5 className="sideNavbar-navigation-title1">Pilih Wilayah</h5>
                                     <form action="">
                                         <label className="formLabel" htmlFor="">
                                             Pilih Kecamatan :
@@ -233,8 +351,8 @@ export default class DashboardPayakumbuh extends Component {
                             </div>
                         </div>
                         <div className="mainContent">
-                            <h1>menampilkan data untuk {apa}</h1>
-                            <div className="row">
+                            <h1 className="mainContent-judul">Menampilkan Data Untuk {apa}</h1>
+                            <div className="row mainContent-row1">
                                 <CardKecil judul={"Jumlah Penduduk"} jumlah={this.state.jumlahPenduduk.toLocaleString()} />
 
                                 <CardKecil judul={"Jumlah Kartu Keluarga"} jumlah={this.state.jumlahKartuKeluarga.toLocaleString()} />
@@ -244,6 +362,48 @@ export default class DashboardPayakumbuh extends Component {
                                 <CardKecil judul={"Jumlah Customer Indihome"} jumlah={this.state.jumlahCustIndihome.toLocaleString()} />
                                 <CardKecil judul={"Jumlah Customer HVC"} jumlah={this.state.jumlahCustHVC.toLocaleString()} />
                             </div>
+                            <div className="row mainContent-row3">
+                                {/* <div className="col-6">
+                                    <p>top Tv Category data :</p>
+                                    
+                                </div>
+                                <div className="col-6">masok</div> */}
+                                <p>Bar Chart Program Tv</p>
+                                <Bar
+                                    height={100}
+                                    data={{
+                                        labels: this.state.tvCategory,
+                                        datasets: [
+                                            {
+                                                label: "Jumlah",
+                                                backgroundColor: "rgba(75,192,192,1)",
+                                                borderColor: "rgba(0,0,0,1)",
+                                                borderWidth: 2,
+                                                data: this.state.tvCategoryJumlah,
+                                            },
+                                        ],
+                                    }}
+                                    options={{
+                                        title: {
+                                            display: true,
+                                            text: "Average Rainfall per month",
+                                            fontSize: 20,
+                                        },
+                                        legend: {
+                                            display: true,
+                                            position: "right",
+                                        },
+                                        maintainAspectRatio: true,
+                                    }}
+                                />
+                            </div>
+                            <button
+                                onClick={() => {
+                                    console.log(this.state.tvCategoryJumlah);
+                                }}
+                            >
+                                cek print state
+                            </button>
                         </div>
                         {/* <h1>masuk</h1>
                         <button

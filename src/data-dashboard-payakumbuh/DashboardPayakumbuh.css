@@ -1,13 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+/* font-family: 'Poppins', sans-serif; */
+
 .sideNavbar {
     position: fixed;
     width: 20%;
     height: 100vh;
-    border: 1px solid red;
     background-color: rgb(38, 53, 68);
     color: white;
 }
 
 .sideNavbar-header {
+    font-family: "Poppins", sans-serif;
     height: 20vh;
     display: flex;
     justify-content: center;
@@ -32,13 +35,27 @@
     text-align: center;
 }
 
+.sideNavbar-navigation-title1 {
+    margin-left: 0.5rem;
+}
+
 .mainContent {
     margin-left: 20%;
     width: 79%;
     height: 1000vh;
+    font-family: "Poppins", sans-serif;
 }
 
-.mainContent-row2{
+.mainContent-judul {
+    padding-top: 2rem;
+    text-align: center;
+}
+
+.mainContent-row1 {
+    margin-top: 30px;
+}
+
+.mainContent-row2 {
     margin-top: 30px;
     margin-left: 15%;
 }
