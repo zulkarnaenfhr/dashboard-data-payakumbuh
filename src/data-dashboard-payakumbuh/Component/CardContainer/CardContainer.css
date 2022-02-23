@@ -1,0 +1,18 @@
+#CardContainer {
+    height: 400px;
+    background-color: white;
+}
+
+.mainContent-judul {
+    padding-top: 1rem;
+    text-align: center;
+}
+
+.mainContent-row1 {
+    margin-top: 30px;
+}
+
+.mainContent-row2 {
+    margin-top: 30px;
+    margin-left: 15%;
+}

@@ -5,6 +5,8 @@ import CardKecil from "./Component/CardKecil/CardKecil";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import Cardsedang from "./Component/CardBesar/CardSedang";
+import Welcomeheader from "./Component/Welcome Header/WelcomeHeader";
+import Cardcontainer from "./Component/CardContainer/CardContainer";
 
 export default class DashboardPayakumbuh extends Component {
     constructor(props) {
@@ -417,12 +419,28 @@ export default class DashboardPayakumbuh extends Component {
                             </div>
                         </div>
                         <div className="mainContent">
-                            <h1 className="mainContent-judul">Menampilkan Data Untuk {apa}</h1>
+                            <div className="welcomeHeader-container">
+                                <Welcomeheader />
+                            </div>
+                            <div className="card-container">
+                                <Cardcontainer
+                                    dataApa={apa}
+                                    jumlahPenduduk={this.state.jumlahPenduduk.toLocaleString()}
+                                    jumlahKartuKeluarga={this.state.jumlahKartuKeluarga.toLocaleString()}
+                                    jumlahPendudukBerKTP={this.state.jumlahKTP.toLocaleString()}
+                                    avarageRPU={`Rp. ${this.state.avgRPU.toLocaleString("id-ID")}`}
+                                    jumlahCustIndihome={this.state.jumlahCustIndihome.toLocaleString()}
+                                    jumlahCustHVC={this.state.jumlahCustHVC.toLocaleString()}
+                                />
+                            </div>
+                            {/* <h1 className="mainContent-judul">Menampilkan Data Untuk {apa}</h1>
                             <div className="row mainContent-row1">
                                 <CardKecil judul={"Jumlah Penduduk"} jumlah={this.state.jumlahPenduduk.toLocaleString()} />
 
                                 <CardKecil judul={"Jumlah Kartu Keluarga"} jumlah={this.state.jumlahKartuKeluarga.toLocaleString()} />
+
                                 <CardKecil judul={"Jumlah Penduduk Ber-KTP"} jumlah={this.state.jumlahKTP.toLocaleString()} />
+
                                 <CardKecil judul={"Avarage RPU"} jumlah={`Rp. ${this.state.avgRPU.toLocaleString("id-ID")}`} />
                             </div>
 
@@ -432,68 +450,60 @@ export default class DashboardPayakumbuh extends Component {
                             </div>
 
                             <div className="row mainContent-row3">
-                                {/* <div className="col-6">
-                                    <p>top Tv Category data :</p>
-                                    
-                                </div>
-                                <div className="col-6">masok</div> */}
                                 <div className="col-6">
-                                    <p>Bar Chart Program Tv</p>
-                                    <Bar
-                                        height={200}
-                                        data={{
-                                            labels: this.state.tvCategory,
-                                            datasets: [
-                                                {
-                                                    label: "Jumlah",
-                                                    backgroundColor: "rgba(75,192,192,1)",
-                                                    borderColor: "rgba(0,0,0,1)",
-                                                    borderWidth: 2,
-                                                    data: this.state.tvCategoryJumlah,
+                                    <p className="barChart-title">Bar Chart Program Tv</p>
+                                    <div className="barChart-container">
+                                        <Bar
+                                            height={200}
+                                            data={{
+                                                labels: this.state.tvCategory,
+                                                datasets: [
+                                                    {
+                                                        label: "Jumlah",
+                                                        backgroundColor: "rgba(75,192,192,1)",
+                                                        borderColor: "rgba(0,0,0,1)",
+                                                        borderWidth: 2,
+                                                        data: this.state.tvCategoryJumlah,
+                                                    },
+                                                ],
+                                            }}
+                                            options={{
+                                                title: {
+                                                    display: true,
+                                                    text: "Average Rainfall per month",
+                                                    fontSize: 20,
                                                 },
-                                            ],
-                                        }}
-                                        options={{
-                                            title: {
-                                                display: true,
-                                                text: "Average Rainfall per month",
-                                                fontSize: 20,
-                                            },
-                                            legend: {
-                                                display: true,
-                                                position: "right",
-                                            },
-                                            maintainAspectRatio: true,
-                                        }}
-                                    />
+                                                legend: {
+                                                    display: true,
+                                                    position: "right",
+                                                },
+                                                maintainAspectRatio: true,
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                                 <div className="col-6">
-                                    <p>daftar top 5 tv program</p>
-                                    {/* {this.state.tvCategoryData.map((data, index) => {
-                                        <p>as.</p>;
-                                    })} */}
-
-                                    {this.state.tvCategoryData.map((data, index) => {
-                                        if (index < 5) {
-                                            return (
-                                                <p key={data.category}>
-                                                    {index + 1}.{data.category} ({data.jumlah})
-                                                </p>
-                                            );
-                                        }
-                                    })}
-                                    {/* {this.state.tvCategoryData.map((data) => (
-                                        <p>{data.category}</p>
-                                    ))} */}
+                                    <div className="cardTopTvProgram">
+                                        <p>daftar top 5 tv program</p>
+                                        {this.state.tvCategoryData.map((data, index) => {
+                                            if (index < 5) {
+                                                return (
+                                                    <p key={data.category}>
+                                                        {index + 1}.{data.category} ({data.jumlah})
+                                                    </p>
+                                                );
+                                            }
+                                        })}
+                                    </div>
                                 </div>
-                            </div>
-                            <button
+                            </div> */}
+                            {/* <button
                                 onClick={() => {
                                     console.log(this.state.tvCategoryData);
                                 }}
                             >
                                 cek print state
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 )}

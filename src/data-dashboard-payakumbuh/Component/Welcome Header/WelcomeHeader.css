@@ -1,0 +1,19 @@
+#welcomeHeader {
+    height: 250px;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("Header Background2.jpg");
+    color: white;
+}
+
+.welcomeHeader-left {
+    padding-left: 50px;
+    margin-top: 60px;
+}
+
+.welcomeTitle {
+    font-weight: 600;
+}
+
+.welcomeHeader-right {
+    margin-top: 60px;
+    padding-left: 370px;
+}
