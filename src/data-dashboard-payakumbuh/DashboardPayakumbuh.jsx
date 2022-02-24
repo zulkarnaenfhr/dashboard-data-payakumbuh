@@ -9,6 +9,7 @@ import Cardcontainer from "./Component/CardContainer/CardContainer";
 import Tvprogramcontainer from "./Component/TvProgram Container/TvProgramContainer";
 import Cardtoptvprogram from "./Component/Card Top Tv Program/CardTopTvProgram";
 import Footer from "./Component/Footer/Footer";
+import ChoropletMaps from "./Component/Maps Interactive/Choroplet Maps";
 
 export default class DashboardPayakumbuh extends Component {
     constructor(props) {
@@ -253,10 +254,6 @@ export default class DashboardPayakumbuh extends Component {
         });
     };
 
-    componentDidMount() {
-        this.handleReset();
-    }
-
     handleReset = async () => {
         await this.setState({
             data: [],
@@ -400,6 +397,10 @@ export default class DashboardPayakumbuh extends Component {
         });
     };
 
+    componentDidMount() {
+        this.handleReset();
+    }
+
     render() {
         const statusPilKecamatan = this.state.pilKecamatan;
 
@@ -478,21 +479,25 @@ export default class DashboardPayakumbuh extends Component {
                                         jumlahCustHVC={this.state.jumlahCustHVC.toLocaleString()}
                                     />
                                 </div>
+                            </div>
+
+                            <div className="container">
                                 <div className="row tvProgram-container">
                                     <div className="col-7">
                                         <Tvprogramcontainer dataApa={apa} labelTableTvProgram={this.state.tvCategory} tvCategoryJumlah={this.state.tvCategoryJumlah} />
                                     </div>
                                     <div className="col-5">
                                         <Cardtoptvprogram dataApa={apa} tvCategoryData={this.state.tvCategoryData} />
+                                        <ChoropletMaps />
                                     </div>
-                                    <div className="maps-container">
+                                    {/* <div className="maps-container">
                                         <iframe
                                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63836.58103671247!2d100.59773331023011!3d-0.22949540713366975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2fd54c3c6f83a013%3A0x4039d80b2210dd0!2sPayakumbuh%2C%20Kota%20Payakumbuh%2C%20Sumatera%20Barat!5e0!3m2!1sid!2sid!4v1645664985372!5m2!1sid!2sid"
                                             className="maps"
                                             loading="lazy"
                                             allowFullScreen=""
                                         ></iframe>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
 
