@@ -485,6 +485,14 @@ export default class DashboardPayakumbuh extends Component {
                                     <div className="col-5">
                                         <Cardtoptvprogram dataApa={apa} tvCategoryData={this.state.tvCategoryData} />
                                     </div>
+                                    <div className="maps-container">
+                                        <iframe
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63836.58103671247!2d100.59773331023011!3d-0.22949540713366975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2fd54c3c6f83a013%3A0x4039d80b2210dd0!2sPayakumbuh%2C%20Kota%20Payakumbuh%2C%20Sumatera%20Barat!5e0!3m2!1sid!2sid!4v1645664985372!5m2!1sid!2sid"
+                                            className="maps"
+                                            loading="lazy"
+                                            allowFullScreen=""
+                                        ></iframe>
+                                    </div>
                                 </div>
                             </div>
 
