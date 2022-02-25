@@ -1,2 +1,11 @@
 tambahi geo location (maps)
 footer 
+update (kalau misal pilihan parameter "" masukan ke handle Reset)
+- melakukan pembuatan charting arpu
+- jika di klik per kecamatan ntar yang muncul di maps cuman kecamatan itu saja
+- cari logic ngambil data polygon di masing masing data
+
+jadi dari array seluruh data kecamatan, dimap terus diambil cek arpunya kan, terus data return di push
+
+
+buat masing masing fungsi biar nyaman dilihat

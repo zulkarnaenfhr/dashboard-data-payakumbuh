@@ -16,14 +16,14 @@ export default class DashboardPayakumbuh extends Component {
         super(props);
 
         this.state = {
-            data: [],
+            data: [], // array seluruh data
 
-            statusLoad: false,
-            statusLoadKel: false,
+            statusLoad: false, // buat status load apakah udah ada
+            statusLoadKel: false, // status load kelurahan apakah udah apa belum
 
-            dataKecamatan: [],
-            dataKelurahan: [],
-            pilKecamatan: "",
+            dataKecamatan: [], // data per kecamatan
+            dataKelurahan: [], // data per kelurahan
+            pilKecamatan: "", // ini buat ngambil data kelurahan per kecamatan
 
             dataPerKecamatan: [],
             dataKelurahanPerKecamatan: [],
@@ -47,6 +47,12 @@ export default class DashboardPayakumbuh extends Component {
         this.handleKelurahanChange = this.handleKelurahanChange.bind(this);
         this.handleReset = this.handleReset.bind(this);
         this.handleKecamatanChange = this.handleKecamatanChange.bind(this);
+        this.pengelompokkanDataKecamatan = this.pengelompokkanDataKecamatan.bind(this);
+        this.pengelompokanDataKelurahan = this.pengelompokanDataKelurahan.bind(this);
+        this.pengambilanKelurahanPerKecamatan = this.pengambilanKelurahanPerKecamatan.bind(this);
+        this.dataKecamatantoDataKeyword = this.dataKecamatantoDataKeyword.bind(this);
+        this.perhitunganDataCardKecil = this.perhitunganDataCardKecil.bind(this);
+        this.perhitunganTvProgram = this.perhitunganTvProgram.bind(this);
     }
 
     handleKelurahanChange = async (event) => {
@@ -55,92 +61,28 @@ export default class DashboardPayakumbuh extends Component {
             dataWithKeyword: [],
             statusLoadKel: false,
         });
-        await this.state.data.map((data) => {
-            if (data.desa_kelurahan === event.target.value) {
-                this.state.dataWithKeyword.push(data);
-            }
-        });
+
+        await this.pengelompokanDataKelurahan(event.target.value);
 
         // awal perhitungan data card kecil
-        let jumlahPenduduk = 0;
-        let jumlahKartuKeluarga = 0;
-        let jumlahKTP = 0;
-        let jumlahCustIndihome = 0;
-        let jumlahCustHVC = 0;
-        let jumlahAvgValue = 0;
-        let jumlahJumlahAvgValue = 0;
-
-        await this.state.dataWithKeyword.map((data) => {
-            jumlahPenduduk += data.jumlah_penduduk_kelurahan;
-            jumlahKartuKeluarga += data.jumlah_kk_kelurahan;
-            jumlahKTP += data.jumlah_ktp_kelurahan;
-            jumlahCustIndihome += data.jml_cust_indihome;
-            jumlahCustHVC += data.jml_plg_hvc;
-
-            if (data.avg_arpu !== "") {
-                jumlahAvgValue += parseInt(data.avg_arpu);
-                jumlahJumlahAvgValue += 1;
-            }
-        });
-
-        await this.setState({
-            jumlahPenduduk: jumlahPenduduk,
-            jumlahKartuKeluarga: jumlahKartuKeluarga,
-            jumlahKTP: jumlahKTP,
-            jumlahCustIndihome: jumlahCustIndihome,
-            jumlahCustHVC: jumlahCustHVC,
-            tvCategoryJumlah: [],
-            tvCategoryData: [],
-            avgRPU: jumlahAvgValue / jumlahJumlahAvgValue,
-        });
+        await this.perhitunganDataCardKecil();
         // akhir perhitungan data card kecil
 
         // awal perhitungan tv program
-        await this.state.tvCategory.map((category) => {
-            let jumlah = 0;
-            this.state.dataWithKeyword.map((data) => {
-                if (data.top_tv_genre_program1 === category) {
-                    jumlah += 1;
-                }
-                if (data.top_tv_genre_program2 === category) {
-                    jumlah += 1;
-                }
-                if (data.top_tv_genre_program3 === category) {
-                    jumlah += 1;
-                }
-                if (data.top_tv_genre_program4 === category) {
-                    jumlah += 1;
-                }
-                if (data.top_tv_genre_program5 === category) {
-                    jumlah += 1;
-                }
-            });
-
-            // buat Sorting top 5
-            this.state.tvCategoryData.push({
-                category: category,
-                jumlah: jumlah,
-            });
-
-            this.state.tvCategoryJumlah.push(jumlah);
-        });
-
-        function compare(a, b) {
-            if (a.jumlah > b.jumlah) {
-                return -1;
-            }
-            if (a.jumlah < b.jumlah) {
-                return 1;
-            }
-            return 0;
-        }
-
-        this.state.tvCategoryData.sort(compare);
+        await this.perhitunganTvProgram();
         // akhir perhitungan tv program
 
         // console.log(this.state.dataWithKeyword);
         this.setState({
             statusLoadKel: true,
+        });
+    };
+
+    pengelompokanDataKelurahan = (keyword) => {
+        this.state.data.map((data) => {
+            if (data.desa_kelurahan === keyword) {
+                this.state.dataWithKeyword.push(data);
+            }
         });
     };
 
@@ -154,28 +96,48 @@ export default class DashboardPayakumbuh extends Component {
             dataWithKeyword: [],
         });
 
-        await this.state.data.map((data) => {
-            if (data.kecamatan === this.state.pilKecamatan) {
+        await this.pengelompokkanDataKecamatan(this.state.pilKecamatan);
+
+        await this.pengambilanKelurahanPerKecamatan();
+
+        await this.dataKecamatantoDataKeyword();
+
+        // awal perhitungan data card kecil
+        await this.perhitunganDataCardKecil();
+        // akhir perhitungan data card kecil
+
+        // awal perhitungan tv program
+        await this.perhitunganTvProgram();
+        // akhir perhitungan tv program
+
+        this.setState({
+            statusLoadKel: true,
+        });
+    };
+
+    pengelompokkanDataKecamatan = (keyKecamatan) => {
+        this.state.data.map((data) => {
+            if (data.kecamatan === keyKecamatan) {
                 this.state.dataPerKecamatan.push(data);
             }
         });
+    };
 
-        await this.state.dataPerKecamatan.map((data) => {
+    pengambilanKelurahanPerKecamatan = () => {
+        this.state.dataPerKecamatan.map((data) => {
             const kelurahan = data.desa_kelurahan;
 
-            const statusKel = this.state.dataKelurahanPerKecamatan.includes(kelurahan);
-            if (statusKel === false) {
+            if (!this.state.dataKelurahanPerKecamatan.includes(kelurahan)) {
                 this.state.dataKelurahanPerKecamatan.push(kelurahan);
             }
         });
+    };
 
-        await this.state.data.map((data) => {
-            if (data.kecamatan === event.target.value) {
-                this.state.dataWithKeyword.push(data);
-            }
-        });
+    dataKecamatantoDataKeyword = () => {
+        this.state.dataPerKecamatan.map((data) => this.state.dataWithKeyword.push(data));
+    };
 
-        // awal perhitungan data card kecil
+    perhitunganDataCardKecil = async () => {
         let jumlahPenduduk = 0;
         let jumlahKartuKeluarga = 0;
         let jumlahKTP = 0;
@@ -206,9 +168,9 @@ export default class DashboardPayakumbuh extends Component {
             tvCategoryData: [],
             avgRPU: jumlahAvgValue / jumlahJumlahAvgValue,
         });
-        // akhir perhitungan data card kecil
+    };
 
-        // awal perhitungan tv program
+    perhitunganTvProgram = async () => {
         await this.state.tvCategory.map((category) => {
             let jumlah = 0;
             this.state.dataWithKeyword.map((data) => {
@@ -247,11 +209,6 @@ export default class DashboardPayakumbuh extends Component {
         }
 
         this.state.tvCategoryData.sort(compare);
-        // akhir perhitungan tv program
-
-        this.setState({
-            statusLoadKel: true,
-        });
     };
 
     handleReset = async () => {
@@ -438,7 +395,9 @@ export default class DashboardPayakumbuh extends Component {
                                             </label>
                                             <div className="select">
                                                 <select className="selectOption" onChange={this.handleKecamatanChange} name="" id="">
-                                                    <option value="">pilih kecamatan</option>
+                                                    <option className="defaultOption" value="">
+                                                        pilih kecamatan
+                                                    </option>
                                                     {this.state.dataKecamatan.map((kec) => (
                                                         <option value={kec} key={kec}>
                                                             {kec}
@@ -451,7 +410,9 @@ export default class DashboardPayakumbuh extends Component {
                                             </label>
                                             <div className="select ">
                                                 <select className="selectOption" onChange={this.handleKelurahanChange} name="" id="">
-                                                    <option value="">pilih kelurahan</option>
+                                                    <option className="defaultOption" value="">
+                                                        pilih kelurahan
+                                                    </option>
                                                     {optionKelurahan}
                                                 </select>
                                             </div>
