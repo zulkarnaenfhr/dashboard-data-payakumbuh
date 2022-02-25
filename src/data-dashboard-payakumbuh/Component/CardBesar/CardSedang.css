@@ -5,11 +5,13 @@
     height: 102px;
     border: 1px solid red;
     border-radius: 15px;
-    transition: transform 0.2s; /* Animation */
+    transition: transform 1s, background-color 1s, box-shadow 1.5s, font-weight 1.5s; /* Animation */
 }
 
 .cardSedang:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
+    box-shadow: 5px 5px 20px grey;
+    font-weight: 1000;
 }
 
 .cardSedangJudul {
