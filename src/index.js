@@ -1,14 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import DashboardPayakumbuh from './data-dashboard-payakumbuh/DashboardPayakumbuh';
+import React from "react";
+import ReactDOM from "react-dom";
+import reportWebVitals from "./reportWebVitals";
+import DashboardPayakumbuh from "./data-dashboard-payakumbuh/DashboardPayakumbuh";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <DashboardPayakumbuh />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <DashboardPayakumbuh />
+    </React.StrictMode>,
+    document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

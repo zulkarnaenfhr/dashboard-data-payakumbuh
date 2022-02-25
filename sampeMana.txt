@@ -3,9 +3,9 @@ footer
 update (kalau misal pilihan parameter "" masukan ke handle Reset)
 - melakukan pembuatan charting arpu
 - jika di klik per kecamatan ntar yang muncul di maps cuman kecamatan itu saja
-- cari logic ngambil data polygon di masing masing data
+- cari logic ngambil data polygon di masing masing data ({gagal}, {udah di coba di cek ambil data polygon}) 
 
 jadi dari array seluruh data kecamatan, dimap terus diambil cek arpunya kan, terus data return di push
 
 
-buat masing masing fungsi biar nyaman dilihat
+pengelompokkan top arpu udah diambil, coba ntar lu tampilkan ke dalam bentuk barchart

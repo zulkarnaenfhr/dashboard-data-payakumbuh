@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Data from "./grid_profile_payakumbuh.json";
 import "./DashboardPayakumbuh.css";
-import CardKecil from "./Component/CardKecil/CardKecil";
-import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
 import Welcomeheader from "./Component/Welcome Header/WelcomeHeader";
 import Cardcontainer from "./Component/CardContainer/CardContainer";
 import Tvprogramcontainer from "./Component/TvProgram Container/TvProgramContainer";
@@ -25,11 +22,11 @@ export default class DashboardPayakumbuh extends Component {
             dataKelurahan: [], // data per kelurahan
             pilKecamatan: "", // ini buat ngambil data kelurahan per kecamatan
 
-            dataPerKecamatan: [],
-            dataKelurahanPerKecamatan: [],
+            dataPerKecamatan: [], // data per kecamatan
+            dataKelurahanPerKecamatan: [], // data kelurahan per kecamatan
 
-            pilKeyword: "",
-            dataWithKeyword: [],
+            pilKeyword: "", // pilihan parameter keyword
+            dataWithKeyword: [], // data yang sesuai dengan parameter
 
             // untuk perhitungan card kecil
             jumlahPenduduk: null,
@@ -39,9 +36,13 @@ export default class DashboardPayakumbuh extends Component {
             jumlahCustHVC: null,
             avgRPU: null,
 
-            tvCategory: [],
-            tvCategoryJumlah: [],
-            tvCategoryData: [],
+            tvCategory: [], // category yang tersedia
+            tvCategoryJumlah: [], // jumlah per masing masing kategori
+            tvCategoryData: [], // data lengkap tv program
+
+            ARPUSetiapDataKelurahan: [],
+            topARPU: [],
+            top5ARPU: [],
         };
 
         this.handleKelurahanChange = this.handleKelurahanChange.bind(this);
@@ -53,6 +54,7 @@ export default class DashboardPayakumbuh extends Component {
         this.dataKecamatantoDataKeyword = this.dataKecamatantoDataKeyword.bind(this);
         this.perhitunganDataCardKecil = this.perhitunganDataCardKecil.bind(this);
         this.perhitunganTvProgram = this.perhitunganTvProgram.bind(this);
+        this.pengelompokkanARPU = this.pengelompokkanARPU.bind(this);
     }
 
     handleKelurahanChange = async (event) => {
@@ -245,8 +247,7 @@ export default class DashboardPayakumbuh extends Component {
 
         await this.state.data.map((data) => {
             const kecamatan = data.kecamatan;
-            const statusKec = this.state.dataKecamatan.includes(kecamatan);
-            if (statusKec === false) {
+            if (!this.state.dataKecamatan.includes(kecamatan)) {
                 this.state.dataKecamatan.push(kecamatan);
             }
 
@@ -358,6 +359,54 @@ export default class DashboardPayakumbuh extends Component {
         this.handleReset();
     }
 
+    pengelompokkanARPU = async () => {
+        // bertujuan untuk charting kelompok arpu
+        // console.log(this.state.dataKelurahan);
+        await this.state.dataKelurahan.map(async (kelurahan) => {
+            await this.setState({
+                ARPUSetiapDataKelurahan: [],
+            });
+            let jumlahAvgValue = 0;
+            let jumlahJumlahAvgValue = 0;
+            this.state.data.map((data) => {
+                if (data.desa_kelurahan === kelurahan) {
+                    if (data.avg_arpu !== "") {
+                        jumlahAvgValue += parseInt(data.avg_arpu);
+                        jumlahJumlahAvgValue += 1;
+                    }
+                }
+            });
+
+            this.state.topARPU.push({
+                namaKelurahan: kelurahan,
+                valueARPU: jumlahAvgValue / jumlahJumlahAvgValue,
+            });
+
+            this.state.ARPUSetiapDataKelurahan.push(jumlahAvgValue / jumlahJumlahAvgValue);
+        });
+
+        function compare(a, b) {
+            if (a.valueARPU > b.valueARPU) {
+                return -1;
+            }
+            if (a.valueARPU < b.valueARPU) {
+                return 1;
+            }
+            return 0;
+        }
+
+        await this.state.topARPU.sort(compare);
+
+        for (let i = 0; i < 5; i++) {
+            this.state.top5ARPU.push({
+                namaKelurahan: this.state.topARPU[i].namaKelurahan,
+                valueARPU: this.state.topARPU[i].valueARPU,
+            });
+        }
+
+        console.log(this.state.top5ARPU);
+    };
+
     render() {
         const statusPilKecamatan = this.state.pilKecamatan;
 
@@ -451,24 +500,10 @@ export default class DashboardPayakumbuh extends Component {
                                         <Cardtoptvprogram dataApa={apa} tvCategoryData={this.state.tvCategoryData} />
                                         <ChoropletMaps />
                                     </div>
-                                    {/* <div className="maps-container">
-                                        <iframe
-                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63836.58103671247!2d100.59773331023011!3d-0.22949540713366975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2fd54c3c6f83a013%3A0x4039d80b2210dd0!2sPayakumbuh%2C%20Kota%20Payakumbuh%2C%20Sumatera%20Barat!5e0!3m2!1sid!2sid!4v1645664985372!5m2!1sid!2sid"
-                                            className="maps"
-                                            loading="lazy"
-                                            allowFullScreen=""
-                                        ></iframe>
-                                    </div> */}
                                 </div>
                             </div>
+                            <button onClick={this.pengelompokkanARPU}>Masok</button>
 
-                            {/* <button
-                                onClick={() => {
-                                    console.log(this.state.tvCategoryData);
-                                }}
-                            >
-                                cek print state
-                            </button> */}
                             <div className="footer-container">
                                 <Footer />
                             </div>
