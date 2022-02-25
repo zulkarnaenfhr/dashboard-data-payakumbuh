@@ -4,7 +4,7 @@
     height: 102px;
     border: 1px solid red;
     border-radius: 15px;
-    transition: transform 1s, background-color 1s, box-shadow 1.5s; /* Animation */
+    transition: transform 1s, background-color 1s, box-shadow 1.5s, font-weight 1s; /* Animation */
 }
 
 .cardKecilJudul {
@@ -21,4 +21,5 @@
 .cardKecil:hover {
     transform: scale(1.2);
     box-shadow: 5px 5px 20px grey;
+    font-weight: 1000;
 }
