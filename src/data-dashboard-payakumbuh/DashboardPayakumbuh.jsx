@@ -7,6 +7,7 @@ import Tvprogramcontainer from "./Component/TvProgram Container/TvProgramContain
 import Cardtoptvprogram from "./Component/Card Top Tv Program/CardTopTvProgram";
 import Footer from "./Component/Footer/Footer";
 import ChoropletMaps from "./Component/Maps Interactive/Choroplet Maps";
+import Top5arpu from "./Component/Top ARPU/Top5ARPU";
 
 export default class DashboardPayakumbuh extends Component {
     constructor(props) {
@@ -42,19 +43,24 @@ export default class DashboardPayakumbuh extends Component {
 
             ARPUSetiapDataKelurahan: [],
             topARPU: [],
+            topARPUKeyword: [],
             top5ARPU: [],
+            top5ARPUWilayah: [],
+            top5ARPUValue: [],
         };
 
         this.handleKelurahanChange = this.handleKelurahanChange.bind(this);
         this.handleReset = this.handleReset.bind(this);
         this.handleKecamatanChange = this.handleKecamatanChange.bind(this);
-        this.pengelompokkanDataKecamatan = this.pengelompokkanDataKecamatan.bind(this);
+        this.pengelompokanDataKecamatan = this.pengelompokanDataKecamatan.bind(this);
         this.pengelompokanDataKelurahan = this.pengelompokanDataKelurahan.bind(this);
         this.pengambilanKelurahanPerKecamatan = this.pengambilanKelurahanPerKecamatan.bind(this);
         this.dataKecamatantoDataKeyword = this.dataKecamatantoDataKeyword.bind(this);
         this.perhitunganDataCardKecil = this.perhitunganDataCardKecil.bind(this);
         this.perhitunganTvProgram = this.perhitunganTvProgram.bind(this);
-        this.pengelompokkanARPU = this.pengelompokkanARPU.bind(this);
+        this.pengelompokanARPU = this.pengelompokanARPU.bind(this);
+        this.pengelompokanARPUKecamatanChange = this.pengelompokanARPUKecamatanChange.bind(this);
+        this.pengelompokanARPUKelurahanChange = this.pengelompokanARPUKelurahanChange.bind(this);
     }
 
     handleKelurahanChange = async (event) => {
@@ -73,6 +79,8 @@ export default class DashboardPayakumbuh extends Component {
         // awal perhitungan tv program
         await this.perhitunganTvProgram();
         // akhir perhitungan tv program
+
+        await this.pengelompokanARPUKelurahanChange(event.target.value);
 
         // console.log(this.state.dataWithKeyword);
         this.setState({
@@ -98,7 +106,7 @@ export default class DashboardPayakumbuh extends Component {
             dataWithKeyword: [],
         });
 
-        await this.pengelompokkanDataKecamatan(this.state.pilKecamatan);
+        await this.pengelompokanDataKecamatan(this.state.pilKecamatan);
 
         await this.pengambilanKelurahanPerKecamatan();
 
@@ -112,12 +120,14 @@ export default class DashboardPayakumbuh extends Component {
         await this.perhitunganTvProgram();
         // akhir perhitungan tv program
 
+        await this.pengelompokanARPUKecamatanChange(event.target.value);
+
         this.setState({
             statusLoadKel: true,
         });
     };
 
-    pengelompokkanDataKecamatan = (keyKecamatan) => {
+    pengelompokanDataKecamatan = (keyKecamatan) => {
         this.state.data.map((data) => {
             if (data.kecamatan === keyKecamatan) {
                 this.state.dataPerKecamatan.push(data);
@@ -241,6 +251,11 @@ export default class DashboardPayakumbuh extends Component {
             tvCategory: [],
             tvCategoryJumlah: [],
             tvCategoryData: [],
+
+            top5ARPU: [],
+            topARPUKeyword: [],
+            top5ARPUValue: [],
+            top5ARPUWilayah: [],
         });
 
         await Data.map((data) => this.state.data.push(data));
@@ -346,40 +361,56 @@ export default class DashboardPayakumbuh extends Component {
             return 0;
         }
 
-        this.state.tvCategoryData.sort(compare);
+        await this.state.tvCategoryData.sort(compare);
 
+        await this.pengelompokanARPU();
         // akhir perhitungan tv program
 
         this.setState({
             statusLoad: true,
         });
+
+        console.log(this.state.top5ARPUValue);
+        console.log(this.state.top5ARPUWilayah);
+        console.log(this.state.top5ARPU);
     };
 
     componentDidMount() {
         this.handleReset();
     }
 
-    pengelompokkanARPU = async () => {
+    pengelompokanARPU = async () => {
         // bertujuan untuk charting kelompok arpu
         // console.log(this.state.dataKelurahan);
+        await this.setState({
+            ARPUSetiapDataKelurahan: [],
+            topARPU: [],
+            topARPUKeyword: [],
+            top5ARPU: [],
+            top5ARPUWilayah: [],
+            top5ARPUValue: [],
+        });
         await this.state.dataKelurahan.map(async (kelurahan) => {
             await this.setState({
                 ARPUSetiapDataKelurahan: [],
             });
             let jumlahAvgValue = 0;
             let jumlahJumlahAvgValue = 0;
+            let namaKecamatan = "";
             this.state.data.map((data) => {
                 if (data.desa_kelurahan === kelurahan) {
                     if (data.avg_arpu !== "") {
                         jumlahAvgValue += parseInt(data.avg_arpu);
                         jumlahJumlahAvgValue += 1;
                     }
+                    namaKecamatan = data.kecamatan;
                 }
             });
 
             this.state.topARPU.push({
                 namaKelurahan: kelurahan,
                 valueARPU: jumlahAvgValue / jumlahJumlahAvgValue,
+                namaKecamatan: namaKecamatan,
             });
 
             this.state.ARPUSetiapDataKelurahan.push(jumlahAvgValue / jumlahJumlahAvgValue);
@@ -397,14 +428,85 @@ export default class DashboardPayakumbuh extends Component {
 
         await this.state.topARPU.sort(compare);
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 10; i++) {
             this.state.top5ARPU.push({
                 namaKelurahan: this.state.topARPU[i].namaKelurahan,
                 valueARPU: this.state.topARPU[i].valueARPU,
             });
         }
 
-        console.log(this.state.top5ARPU);
+        this.state.top5ARPU.map((data) => {
+            this.state.top5ARPUWilayah.push(data.namaKelurahan);
+            this.state.top5ARPUValue.push(data.valueARPU);
+        });
+    };
+
+    pengelompokanARPUKecamatanChange = async (keyword) => {
+        await this.setState({
+            top5ARPU: [],
+            topARPUKeyword: [],
+            top5ARPUValue: [],
+            top5ARPUWilayah: [],
+        });
+
+        await console.log(keyword);
+
+        await this.state.topARPU.map((data) => {
+            if (data.namaKecamatan === keyword) {
+                this.state.topARPUKeyword.push({
+                    namaKelurahan: data.namaKelurahan,
+                    valueARPU: data.valueARPU,
+                });
+            }
+        });
+
+        await this.state.topARPUKeyword.map((data, index) => {
+            if (index < 10) {
+                this.state.top5ARPU.push({
+                    namaKelurahan: data.namaKelurahan,
+                    valueARPU: data.valueARPU,
+                });
+            }
+        });
+
+        await this.state.top5ARPU.map((data) => {
+            this.state.top5ARPUWilayah.push(data.namaKelurahan);
+            this.state.top5ARPUValue.push(data.valueARPU);
+        });
+    };
+
+    pengelompokanARPUKelurahanChange = async (keyword) => {
+        await this.setState({
+            top5ARPU: [],
+            topARPUKeyword: [],
+            top5ARPUValue: [],
+            top5ARPUWilayah: [],
+        });
+
+        await console.log(keyword);
+
+        await this.state.topARPU.map((data) => {
+            if (data.namaKelurahan === keyword) {
+                this.state.topARPUKeyword.push({
+                    namaKelurahan: data.namaKelurahan,
+                    valueARPU: data.valueARPU,
+                });
+            }
+        });
+
+        await this.state.topARPUKeyword.map((data, index) => {
+            if (index < 10) {
+                this.state.top5ARPU.push({
+                    namaKelurahan: data.namaKelurahan,
+                    valueARPU: data.valueARPU,
+                });
+            }
+        });
+
+        await this.state.top5ARPU.map((data) => {
+            this.state.top5ARPUWilayah.push(data.namaKelurahan);
+            this.state.top5ARPUValue.push(data.valueARPU);
+        });
     };
 
     render() {
@@ -492,17 +594,22 @@ export default class DashboardPayakumbuh extends Component {
                             </div>
 
                             <div className="container">
-                                <div className="row tvProgram-container">
+                                <div className="row row3-container">
                                     <div className="col-7">
-                                        <Tvprogramcontainer dataApa={apa} labelTableTvProgram={this.state.tvCategory} tvCategoryJumlah={this.state.tvCategoryJumlah} />
+                                        {/* <Tvprogramcontainer dataApa={apa} labelTableTvProgram={this.state.tvCategory} tvCategoryJumlah={this.state.tvCategoryJumlah} /> */}
+
+                                        <ChoropletMaps />
                                     </div>
                                     <div className="col-5">
                                         <Cardtoptvprogram dataApa={apa} tvCategoryData={this.state.tvCategoryData} />
-                                        <ChoropletMaps />
+                                        {/* <ChoropletMaps /> */}
                                     </div>
                                 </div>
+
+                                <div className="topARPU-container">
+                                    <Top5arpu dataApa={apa} labelWilayah={this.state.top5ARPUWilayah} valueARPU={this.state.top5ARPUValue} />
+                                </div>
                             </div>
-                            <button onClick={this.pengelompokkanARPU}>Masok</button>
 
                             <div className="footer-container">
                                 <Footer />

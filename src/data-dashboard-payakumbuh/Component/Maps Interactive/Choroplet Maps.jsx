@@ -8,11 +8,15 @@ class ChoropletMaps extends Component {
     render() {
         return (
             <div id="choropletMaps-container" data-aos="fade-up" data-aos-delay="500" className="container">
+                <div className="charloteMaps-title-container">
+                    <p className="charloteMaps-title">Maps Wilayah Kota Payakumbuh</p>
+                </div>
+
                 <MapContainer
                     center={center}
                     zoom={12}
                     style={{
-                        width: "485px",
+                        width: "637px",
                         height: "400px",
                     }}
                 >

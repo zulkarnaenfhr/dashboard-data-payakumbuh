@@ -140,7 +140,8 @@ class Cekambildatapolygon extends Component {
             arrKoordinat8: [],
             arrKoordinat9: [],
             arrKoordinat10: [],
-            koordinatPayakumbuh: [],
+            koordinatTiakar: [],
+            koordinatSicincin: [],
         };
     }
 
@@ -150,7 +151,7 @@ class Cekambildatapolygon extends Component {
         let dibelakangkoma = 8;
 
         this.state.data.map((data) => {
-            if (data.kecamatan === "LAMPOSI TIGO NAGORI") {
+            if (data.desa_kelurahan === "KOTO BARU") {
                 let koordinat1 = parseFloat(data.st_astext.substring(11, 23));
                 let koordinat2 = parseFloat(data.st_astext.substring(24, 35));
                 let koordinat3 = parseFloat(data.st_astext.substring(37, 49));
@@ -162,27 +163,50 @@ class Cekambildatapolygon extends Component {
                 let koordinat9 = parseFloat(data.st_astext.substring(115, 127));
                 let koordinat10 = parseFloat(data.st_astext.substring(128, 139));
 
-                this.state.arrKoordinat1.push(koordinat1);
-                this.state.arrKoordinat2.push(koordinat2);
-                this.state.arrKoordinat3.push(koordinat3);
-                this.state.arrKoordinat4.push(koordinat4);
-                this.state.arrKoordinat5.push(koordinat5);
-                this.state.arrKoordinat6.push(koordinat6);
-                this.state.arrKoordinat7.push(koordinat7);
-                this.state.arrKoordinat8.push(koordinat8);
-                this.state.arrKoordinat9.push(koordinat9);
-                this.state.arrKoordinat10.push(koordinat10);
-                // this.state.koordinatPayakumbuh.push([koordinat1, koordinat2], [koordinat3, koordinat4], [koordinat5, koordinat6], [koordinat7, koordinat8], [koordinat9, koordinat10]);
-                this.state.koordinatPayakumbuh.push([koordinat1, koordinat2], [koordinat3, koordinat4], [koordinat5, koordinat6], [koordinat7, koordinat8], [koordinat9, koordinat10]);
+                // this.state.arrKoordinat1.push(koordinat1);
+                // this.state.arrKoordinat2.push(koordinat2);
+                // this.state.arrKoordinat3.push(koordinat3);
+                // this.state.arrKoordinat4.push(koordinat4);
+                // this.state.arrKoordinat5.push(koordinat5);
+                // this.state.arrKoordinat6.push(koordinat6);
+                // this.state.arrKoordinat7.push(koordinat7);
+                // this.state.arrKoordinat8.push(koordinat8);
+                // this.state.arrKoordinat9.push(koordinat9);
+                // this.state.arrKoordinat10.push(koordinat10);
+
+                this.state.koordinatTiakar.push([koordinat2, koordinat1], [koordinat4, koordinat3], [koordinat6, koordinat5], [koordinat8, koordinat7], [koordinat10, koordinat9]);
+            } else if (data.desa_kelurahan === "KUBU GADANG") {
+                let koordinat1 = parseFloat(data.st_astext.substring(11, 23));
+                let koordinat2 = parseFloat(data.st_astext.substring(24, 35));
+                let koordinat3 = parseFloat(data.st_astext.substring(37, 49));
+                let koordinat4 = parseFloat(data.st_astext.substring(50, 61));
+                let koordinat5 = parseFloat(data.st_astext.substring(63, 75));
+                let koordinat6 = parseFloat(data.st_astext.substring(76, 87));
+                let koordinat7 = parseFloat(data.st_astext.substring(89, 101));
+                let koordinat8 = parseFloat(data.st_astext.substring(102, 113));
+                let koordinat9 = parseFloat(data.st_astext.substring(115, 127));
+                let koordinat10 = parseFloat(data.st_astext.substring(128, 139));
+
+                // this.state.arrKoordinat1.push(koordinat1);
+                // this.state.arrKoordinat2.push(koordinat2);
+                // this.state.arrKoordinat3.push(koordinat3);
+                // this.state.arrKoordinat4.push(koordinat4);
+                // this.state.arrKoordinat5.push(koordinat5);
+                // this.state.arrKoordinat6.push(koordinat6);
+                // this.state.arrKoordinat7.push(koordinat7);
+                // this.state.arrKoordinat8.push(koordinat8);
+                // this.state.arrKoordinat9.push(koordinat9);
+                // this.state.arrKoordinat10.push(koordinat10);
+
+                this.state.koordinatSicincin.push([koordinat2, koordinat1], [koordinat4, koordinat3], [koordinat6, koordinat5], [koordinat8, koordinat7], [koordinat10, koordinat9]);
             }
         });
 
-        // this.state.koordinatPayakumbuh.push([0.21455412, 0.20554551], [0.20554551, 0.21455412]);
+        // this.state.koordinatTiakar.push([0.21455412, 0.20554551], [0.20554551, 0.21455412]);
 
         // console.log(this.state.arrKoordinat1);
         // console.log(this.state.arrKoordinat2);
-        console.log(this.state.koordinatPayakumbuh);
-        console.log(limposiTigoNagoro);
+        console.log(this.state.koordinatTiakar);
     }
 
     render() {
@@ -200,8 +224,11 @@ class Cekambildatapolygon extends Component {
                         url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=aygYUUBoyfx9IDsjauP0"
                         attribution={`<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>`}
                     />
-                    <Polygon color="cadetblue" fillColor="cadetblue" positions={this.state.koordinatPayakumbuh}>
-                        <Popup>Limposi Tigo Nagaro</Popup>
+                    <Polygon color="cadetblue" fillColor="cadetblue" positions={this.state.koordinatTiakar}>
+                        <Popup>Tiakar</Popup>
+                    </Polygon>
+                    <Polygon color="cadetblue" fillColor="cadetblue" positions={this.state.koordinatSicincin}>
+                        <Popup>Sicincin</Popup>
                     </Polygon>
                 </MapContainer>
             </div>

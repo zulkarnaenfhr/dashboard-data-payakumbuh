@@ -115,16 +115,17 @@ select::-ms-expand {
     padding-top: 2rem;
 }
 
-.tvProgram-container {
+.row3-container {
     padding-top: 2rem;
-}
-
-.maps-container {
 }
 
 .maps {
     width: 100%;
     height: 500px;
+}
+
+.topARPU-container{
+    padding-top: 2rem;
 }
 
 .footer-container {

@@ -1,0 +1,17 @@
+#top5ARPU {
+    background-color: white;
+}
+
+.top5ARPU-title-container {
+    height: 40px;
+    background-color: #394263;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.top5ARPU-title {
+    padding-top: 0.4rem;
+    font-weight: 600;
+    padding-left: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
